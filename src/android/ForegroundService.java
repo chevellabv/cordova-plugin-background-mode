@@ -35,8 +35,11 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.app.NotificationChannel;
+import android.util.Log;
 
 import org.json.JSONObject;
+
+import java.util.logging.Logger;
 
 import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
@@ -125,6 +128,7 @@ public class ForegroundService extends Service {
     @SuppressLint("WakelockTimeout")
     private void keepAwake()
     {
+        Log.d("FOREGROUND-SERVICE", "KeepAwake run");
         JSONObject settings = BackgroundMode.getSettings();
         boolean isSilent    = settings.optBoolean("silent", false);
 
@@ -179,7 +183,7 @@ public class ForegroundService extends Service {
         // The user-visible description of the channel.
         String description = "cordova-plugin-background-moden notification";
 
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
 
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name,importance);
 

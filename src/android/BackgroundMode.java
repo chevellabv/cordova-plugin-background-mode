@@ -26,6 +26,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -125,6 +126,7 @@ public class BackgroundMode extends CordovaPlugin {
     @Override
     public void onPause(boolean multitasking)
     {
+        Log.d("BACKGROUND-SERVICE", "onPause method run");
         try {
             inBackground = true;
             startService();
@@ -169,7 +171,7 @@ public class BackgroundMode extends CordovaPlugin {
     private void enableMode()
     {
         isDisabled = false;
-
+        Log.d("BACKGROUND-SERVICE", "enableMode method run with variable inBackgroud: "+inBackground);
         if (inBackground) {
             startService();
         }
@@ -238,6 +240,8 @@ public class BackgroundMode extends CordovaPlugin {
 
         if (isDisabled || isBind)
             return;
+
+        Log.d("BACKGROUND-SERVICE","Initiate FOREGROUND-SERVICE");
 
         Intent intent = new Intent(context, ForegroundService.class);
 
